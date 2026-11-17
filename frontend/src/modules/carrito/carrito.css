@@ -51,7 +51,7 @@
 /* Resumen */
 .carrito-resumen { border: 1px solid var(--carrito-borde); border-radius: 12px; padding: 20px; position: sticky; top: 16px; background: #fff; }
 .carrito-resumen h2 { margin: 0 0 16px; font-size: 18px; }
-.carrito-resumen__filas { display: grid; grid-template-columns: 1fr auto; gap: 8px; margin: 16px 0 0; }
+.carrito-resumen__filas { display: grid; grid-template-columns: 1fr auto; gap: 8px 0; margin: 16px 0 0; }
 .carrito-resumen__filas dt { color: var(--carrito-texto-2); }
 .carrito-resumen__filas dd { margin: 0; text-align: right; }
 .carrito-resumen__total { font-size: 20px; font-weight: 700; color: inherit !important;
