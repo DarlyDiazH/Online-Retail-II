@@ -13,6 +13,10 @@ DATABASE_URL = os.getenv("DATABASE_URL") or "sqlite:///./carrito_dev.db"
 if DATABASE_URL.startswith("postgres://"):
     DATABASE_URL = DATABASE_URL.replace("postgres://", "postgresql://", 1)
 
+# Se indica el driver instalado (psycopg2), sin depender del predeterminado de SQLAlchemy
+if DATABASE_URL.startswith("postgresql://"):
+    DATABASE_URL = DATABASE_URL.replace("postgresql://", "postgresql+psycopg2://", 1)
+
 _connect_args = {"check_same_thread": False} if DATABASE_URL.startswith("sqlite") else {}
 
 engine = create_engine(DATABASE_URL, pool_pre_ping=True, connect_args=_connect_args)

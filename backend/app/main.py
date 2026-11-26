@@ -10,6 +10,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 from app.database import Base, engine
+from app.modules.auth.router import router as auth_router
 from app.modules.carrito.router import router as carrito_router
 
 app = FastAPI(title="Online Retail II - API", version="0.1.0")
@@ -25,6 +26,7 @@ app.add_middleware(
 # Crea las tablas que falten (carritos, pedidos...). No borra ni modifica las existentes.
 Base.metadata.create_all(bind=engine)
 
+app.include_router(auth_router)
 app.include_router(carrito_router)
 
 

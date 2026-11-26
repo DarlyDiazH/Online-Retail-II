@@ -26,8 +26,9 @@ from app.database import engine  # noqa: E402
 from app.main import app  # noqa: E402
 
 with engine.begin() as c:
-    c.execute(text("CREATE TABLE usuarios (id TEXT PRIMARY KEY, segmento TEXT)"))
-    c.execute(text("INSERT INTO usuarios VALUES ('vip1', 'VIP'), ('pot1', 'potencial')"))
+    # Tabla de prueba propia: "usuarios" ahora la crea el módulo de autenticación.
+    c.execute(text("CREATE TABLE segmentos_prueba (id TEXT PRIMARY KEY, segmento TEXT)"))
+    c.execute(text("INSERT INTO segmentos_prueba VALUES ('camp1', 'Campeones'), ('pro1', 'prometedores')"))
 
 cliente = TestClient(app)
 
@@ -47,6 +48,18 @@ def cambiar_precio(pid, precio):
 
 
 class PruebasApi(unittest.TestCase):
+    @classmethod
+    def setUpClass(cls):
+        cls._previo = os.environ.get("SEGMENTO_SQL")
+        os.environ["SEGMENTO_SQL"] = "SELECT segmento FROM segmentos_prueba WHERE id = :usuario_id"
+
+    @classmethod
+    def tearDownClass(cls):
+        if cls._previo is None:
+            os.environ.pop("SEGMENTO_SQL", None)
+        else:
+            os.environ["SEGMENTO_SQL"] = cls._previo
+
     def test_01_sin_usuario(self):
         self.assertEqual(cliente.get("/api/carrito").status_code, 422)
 
@@ -56,15 +69,15 @@ class PruebasApi(unittest.TestCase):
         self.assertEqual(r["total"], 0)
         self.assertEqual(r["beneficio"]["segmento"], "Nuevo")
 
-    def test_03_flujo_completo_vip(self):
-        u = h("vip1")
+    def test_03_flujo_completo_campeones(self):
+        u = h("camp1")
         r = cliente.post("/api/carrito/items", json={"producto_id": "P1", "cantidad": 2}, headers=u)
         self.assertEqual(r.status_code, 200, r.text)
         r = cliente.post("/api/carrito/items", json={"producto_id": "P2"}, headers=u).json()
         self.assertEqual(r["subtotal"], 45.50)
-        self.assertEqual(r["beneficio"]["segmento"], "VIP")
-        self.assertEqual(r["descuento"], 6.83)  # 15% de 45.50 = 6.825
-        self.assertEqual(r["total"], 38.67)
+        self.assertEqual(r["beneficio"]["segmento"], "Campeones")
+        self.assertEqual(r["descuento"], 2.28)  # 5% de 45.50 = 2.275
+        self.assertEqual(r["total"], 43.22)
 
         r = cliente.put("/api/carrito/items/P1", json={"cantidad": 3}, headers=u).json()
         self.assertEqual(r["cantidad_articulos"], 4)
@@ -74,8 +87,8 @@ class PruebasApi(unittest.TestCase):
         conf = r.json()
         self.assertTrue(conf["pedido"]["codigo"].startswith("PED-"))
         self.assertEqual(conf["pedido"]["subtotal"], 55.50)
-        self.assertEqual(conf["pedido"]["descuento"], 8.33)
-        self.assertEqual(conf["pedido"]["total"], 47.17)
+        self.assertEqual(conf["pedido"]["descuento"], 2.78)
+        self.assertEqual(conf["pedido"]["total"], 52.72)
 
         self.assertEqual(cliente.get("/api/carrito", headers=u).json()["items"], [])
         hist = cliente.get("/api/pedidos", headers=u).json()
@@ -106,14 +119,14 @@ class PruebasApi(unittest.TestCase):
         self.assertEqual(cliente.post("/api/pedidos", json={}, headers=u).status_code, 400)
 
     def test_06_compra_minima_segmento(self):
-        u = h("pot1")  # "potencial" -> Potencial, 7% desde 30
+        u = h("pro1")  # "prometedores" -> Prometedores, 10% desde 50
         r = cliente.post("/api/carrito/items", json={"producto_id": "P1", "cantidad": 2}, headers=u).json()
-        self.assertEqual(r["beneficio"]["segmento"], "Potencial")
+        self.assertEqual(r["beneficio"]["segmento"], "Prometedores")
         self.assertFalse(r["beneficio"]["aplicado"])
-        self.assertEqual(r["beneficio"]["falta_para_aplicar"], 10.0)
-        r = cliente.put("/api/carrito/items/P1", json={"cantidad": 3}, headers=u).json()
+        self.assertEqual(r["beneficio"]["falta_para_aplicar"], 30.0)
+        r = cliente.put("/api/carrito/items/P1", json={"cantidad": 5}, headers=u).json()
         self.assertTrue(r["beneficio"]["aplicado"])
-        self.assertEqual(r["descuento"], 2.10)
+        self.assertEqual(r["descuento"], 5.0)
 
     def test_07_total_manipulado(self):
         u = h("trampa1")

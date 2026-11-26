@@ -106,7 +106,11 @@ def obtener_producto(producto_id: str) -> dict | None:
 
 def obtener_segmento(db: Session, usuario_id: str) -> str:
     """Segmento del usuario en Neon; 'Nuevo' si no existe coincidencia."""
-    consulta = os.getenv("SEGMENTO_SQL", "SELECT segmento FROM usuarios WHERE id = :usuario_id")
+    consulta = os.getenv("SEGMENTO_SQL") or (
+        "SELECT v.segmento FROM usuarios u "
+        "JOIN vw_descuentos_checkout v ON v.customer_id = u.customer_id "
+        "WHERE u.id = :usuario_id"
+    )
     try:
         valor = db.execute(text(consulta), {"usuario_id": usuario_id}).scalar()
     except Exception as e:  # tabla aún no creada, columna distinta, etc.

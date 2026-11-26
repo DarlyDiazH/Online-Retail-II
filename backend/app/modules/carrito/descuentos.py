@@ -1,8 +1,8 @@
 """Beneficios por segmento de cliente.
 
 Los nombres de segmento deben coincidir con los que produce el modelo K-Means
-(guardados en Neon por el módulo de autenticación). Si el equipo usa otros
-nombres, solo hay que editar el diccionario BENEFICIOS.
+(tabla gold_clientes_segmentados en Neon; política en gold_politica_segmentos).
+"Nuevo" no viene del K-Means: es la categoría provisional para clientes sin historial.
 """
 from decimal import Decimal
 import unicodedata
@@ -13,35 +13,35 @@ SEGMENTO_POR_DEFECTO = "Nuevo"
 # compra_minima: subtotal mínimo para que aplique (0 = siempre)
 # tope: descuento máximo en dinero (None = sin tope)
 BENEFICIOS = {
-    "VIP": {
-        "porcentaje": Decimal("15"),
+    "Campeones": {
+        "porcentaje": Decimal("5"),
         "compra_minima": Decimal("0"),
         "tope": None,
-        "descripcion": "15% de descuento en toda la compra por ser cliente VIP.",
-    },
-    "Leal": {
-        "porcentaje": Decimal("10"),
-        "compra_minima": Decimal("0"),
-        "tope": None,
-        "descripcion": "10% de descuento por tu fidelidad.",
-    },
-    "Potencial": {
-        "porcentaje": Decimal("7"),
-        "compra_minima": Decimal("30"),
-        "tope": None,
-        "descripcion": "7% de descuento en compras desde 30.",
+        "descripcion": "5% de descuento en toda la compra por ser de nuestros mejores clientes.",
     },
     "En riesgo": {
-        "porcentaje": Decimal("12"),
-        "compra_minima": Decimal("0"),
-        "tope": Decimal("50"),
-        "descripcion": "12% de descuento (máximo 50) para darte la bienvenida de vuelta.",
+        "porcentaje": Decimal("15"),
+        "compra_minima": Decimal("100"),
+        "tope": None,
+        "descripcion": "15% de descuento en compras desde £100.",
+    },
+    "Prometedores": {
+        "porcentaje": Decimal("10"),
+        "compra_minima": Decimal("50"),
+        "tope": None,
+        "descripcion": "10% de descuento en compras desde £50.",
+    },
+    "Perdidos": {
+        "porcentaje": Decimal("20"),
+        "compra_minima": Decimal("150"),
+        "tope": None,
+        "descripcion": "20% de descuento en compras desde £150.",
     },
     "Nuevo": {
         "porcentaje": Decimal("5"),
         "compra_minima": Decimal("0"),
         "tope": Decimal("20"),
-        "descripcion": "5% de descuento de bienvenida (máximo 20).",
+        "descripcion": "5% de descuento de bienvenida (máximo £20).",
     },
 }
 

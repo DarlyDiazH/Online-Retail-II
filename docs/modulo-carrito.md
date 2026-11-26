@@ -86,13 +86,13 @@ Todos reciben la cabecera `X-Usuario-Id` con el id del usuario que inició sesi�
 
 | Segmento | Descuento | Condición |
 |---|---|---|
-| VIP | 15 % | — |
-| Leal | 10 % | — |
-| En riesgo | 12 % | tope de 50 |
-| Potencial | 7 % | compra mínima de 30 |
-| Nuevo | 5 % | tope de 20 |
+| Campeones | 5 % | — |
+| En riesgo | 15 % | compra mínima £100 |
+| Prometedores | 10 % | compra mínima £50 |
+| Perdidos | 20 % | compra mínima £150 |
+| Nuevo (provisional) | 5 % | tope £20 |
 
-> ⚠️ Los nombres tienen que coincidir con los segmentos que salieron del K-Means. Si el equipo usa otros nombres (por ejemplo "Campeones" o "Clúster 0"), solo hay que cambiar las claves de `BENEFICIOS`.
+> Los cuatro primeros corresponden a los segmentos del K-Means guardados en Neon. "Nuevo" es una categoría provisional.
 
 ## Integración con los otros módulos
 
@@ -100,7 +100,7 @@ Todos reciben la cabecera `X-Usuario-Id` con el id del usuario que inició sesi�
 - Al iniciar sesión, guardar el id: `localStorage.setItem("usuario_id", id)`. También se puede cambiar `obtenerUsuarioId()` en `api.js` para que lo lea del token.
 - En el backend, cambiar `usuario_actual` en `router.py` por la dependencia que valida el token.
 - El segmento se lee con `SEGMENTO_SQL` (en `.env`). Hay que ajustarlo a la tabla y la columna reales, por ejemplo:
-  `SELECT c.segmento FROM usuarios u JOIN clientes c ON c.customer_id = u.customer_id WHERE u.id = :usuario_id`
+  `SELECT v.segmento FROM usuarios u JOIN vw_descuentos_checkout v ON v.customer_id = u.customer_id WHERE u.id = :usuario_id`
 
 **Persona 2 (catálogo):**
 - Poner el archivo de productos en `backend/data/productos.json` (o `.csv`), o cambiar `PRODUCTOS_PATH`. Se aceptan columnas en español o en inglés: `id`/`StockCode`, `nombre`/`Description`, `precio`/`Price`, `stock`, `categoria`, `imagen`.
