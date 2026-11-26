@@ -1,0 +1,12 @@
+[
+  {"id": "85123A", "nombre": "WHITE HANGING HEART T-LIGHT HOLDER", "precio": 2.95, "stock": 120, "categoria": "Decoración"},
+  {"id": "22423", "nombre": "REGENCY CAKESTAND 3 TIER", "precio": 12.75, "stock": 40, "categoria": "Cocina"},
+  {"id": "85099B", "nombre": "JUMBO BAG RED RETROSPOT", "precio": 2.08, "stock": 200, "categoria": "Bolsos"},
+  {"id": "84879", "nombre": "ASSORTED COLOUR BIRD ORNAMENT", "precio": 1.69, "stock": 300, "categoria": "Decoración"},
+  {"id": "47566", "nombre": "PARTY BUNTING", "precio": 4.95, "stock": 80, "categoria": "Fiestas"},
+  {"id": "20725", "nombre": "LUNCH BAG RED RETROSPOT", "precio": 1.65, "stock": 150, "categoria": "Bolsos"},
+  {"id": "22720", "nombre": "SET OF 3 CAKE TINS PANTRY DESIGN", "precio": 4.95, "stock": 60, "categoria": "Cocina"},
+  {"id": "21212", "nombre": "PACK OF 72 RETROSPOT CAKE CASES", "precio": 0.55, "stock": 500, "categoria": "Cocina"},
+  {"id": "22086", "nombre": "PAPER CHAIN KIT 50'S CHRISTMAS", "precio": 2.95, "stock": 5, "categoria": "Fiestas"},
+  {"id": "23084", "nombre": "RABBIT NIGHT LIGHT", "precio": 2.08, "stock": 0, "categoria": "Iluminación"}
+]
