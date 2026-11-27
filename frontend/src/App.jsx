@@ -3,7 +3,7 @@
 import { BrowserRouter, Link, Navigate, Route, Routes } from "react-router-dom";
 import { CarritoProvider, IconoCarrito, rutasCarrito } from "./modules/carrito";
 import { AuthProvider, MenuUsuario, RutaProtegida, rutasAuthPrivadas, rutasAuthPublicas } from "./modules/auth";
-import CatalogoPage from "./modules/catalogo"; // o la ruta/nombre de tu componente
+import { CatalogoPage } from "./modules/catalogo";
 
 export default function App() {
   return (
