@@ -1,5 +1,5 @@
 // Cliente HTTP del módulo de carrito.
-const API_URL = import.meta.env.VITE_API_URL ?? "http://localhost:8000";
+const API_URL = import.meta.env.VITE_API_URL ?? "http://127.0.0.1:8000";
 
 // El módulo de autenticación (Persona 1) debe guardar el id del usuario al iniciar
 // sesión: localStorage.setItem("usuario_id", id). Si cambia la forma (token, contexto),
