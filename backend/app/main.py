@@ -18,7 +18,9 @@ app = FastAPI(title="Online Retail II - API", version="0.1.0")
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[os.getenv("FRONTEND_ORIGIN", "http://localhost:5173")],
+    # FRONTEND_ORIGIN admite varios orígenes separados por comas
+    allow_origins=[o.strip() for o in os.getenv(
+        "FRONTEND_ORIGIN", "http://localhost:5173,http://127.0.0.1:5173").split(",") if o.strip()],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],

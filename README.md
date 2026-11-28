@@ -21,6 +21,13 @@ El proyecto tiene fines académicos y contempla un proceso de compra simulado, s
 2. **Catálogo de productos:** visualización, búsqueda, filtros y detalles de productos.
 3. **Carrito y compras:** gestión del carrito, descuentos personalizados y simulación de compra.
 
+## Cómo ejecutar
+
+1. Backend: doble clic en `backend/iniciar_backend.bat` (la primera vez, poner la cadena de Neon en `backend/.env`).
+2. Frontend: doble clic en `frontend/iniciar_frontend.bat` → http://localhost:5173
+
+Guía completa: [`docs/como-ejecutar.md`](docs/como-ejecutar.md).
+
 ## Estructura del repositorio
 
 - `frontend/`: aplicación de usuario.
