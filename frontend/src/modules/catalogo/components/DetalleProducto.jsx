@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import { consultarDisponibilidadProducto } from "../api";
+import { BotonAgregar } from "../../carrito";
+import { dinero } from "../../carrito/api";
 
 export function DetalleProducto({ producto, onCerrar }) {
   const [cantidad, setCantidad] = useState(1);
@@ -56,12 +58,21 @@ export function DetalleProducto({ producto, onCerrar }) {
               ID: <strong>{producto.id}</strong> · Código: <strong>{producto.stock_code}</strong>
             </p>
             <p className="detalle-descripcion">{producto.descripcion}</p>
-            <p className="detalle-precio">${producto.precio.toFixed(2)}</p>
+            <p className="detalle-precio">{dinero(producto.precio)}</p>
             <p className={`estado-texto ${hayStock ? "en-stock" : "sin-stock"}`}>
               {hayStock
                 ? `Disponible (${producto.stock} unidades en inventario)`
                 : "Sin stock disponible actualmente"}
             </p>
+
+            <div className="detalle-agregar">
+              <BotonAgregar
+                productoId={producto.id}
+                stock={hayStock ? producto.stock : 0}
+                cantidad={Math.max(1, Number(cantidad) || 1)}
+                texto={Number(cantidad) > 1 ? `Agregar ${cantidad} al carrito` : "Agregar al carrito"}
+              />
+            </div>
 
             <form className="form-disponibilidad" onSubmit={handleVerificarCantidad}>
               <label htmlFor="input-cantidad">Consultar cantidad:</label>

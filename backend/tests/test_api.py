@@ -150,6 +150,24 @@ class PruebasApi(unittest.TestCase):
         finally:
             cambiar_precio("P1", 10.00)
 
+    def test_09_lee_productos_del_catalogo(self):
+        """Sin PRODUCTOS_PATH, el carrito usa el productos.json del módulo de catálogo."""
+        from app.modules.carrito import integraciones
+        anterior = os.environ.pop("PRODUCTOS_PATH", None)
+        try:
+            self.assertEqual(integraciones._ruta_catalogo(), integraciones._CATALOGO)
+            catalogo = json.loads(integraciones._CATALOGO.read_text(encoding="utf-8"))
+            primero = catalogo[0]
+            p = integraciones.obtener_producto(primero["id"])
+            self.assertIsNotNone(p)
+            self.assertEqual(float(p["precio"]), float(primero["precio"]))
+            r = cliente.post("/api/carrito/items", json={"producto_id": primero["id"]}, headers=h("catalogo1"))
+            self.assertEqual(r.status_code, 200, r.text)
+            self.assertEqual(r.json()["items"][0]["nombre"], primero["nombre"])
+        finally:
+            if anterior is not None:
+                os.environ["PRODUCTOS_PATH"] = anterior
+
 
 if __name__ == "__main__":
     unittest.main()

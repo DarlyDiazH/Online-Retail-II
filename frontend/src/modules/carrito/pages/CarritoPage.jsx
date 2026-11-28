@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { dinero, obtenerUsuarioId } from "../api";
 import { useCarrito } from "../CarritoContext";
@@ -59,6 +60,12 @@ export default function CarritoPage() {
   const { carrito, cargando, ocupado, error, aviso, cambiarCantidad, eliminar, vaciar, confirmar, limpiarMensajes } =
     useCarrito();
   const navegar = useNavigate();
+
+  // Al entrar al carrito se limpian los mensajes que vengan de otras páginas (p. ej. del catálogo)
+  useEffect(() => {
+    limpiarMensajes();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   if (!obtenerUsuarioId()) {
     return (

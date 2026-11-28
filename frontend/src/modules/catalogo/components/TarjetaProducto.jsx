@@ -1,3 +1,6 @@
+import { BotonAgregar } from "../../carrito";
+import { dinero } from "../../carrito/api";
+
 export function TarjetaProducto({ producto, onSeleccionar }) {
   const hayStock = producto.disponible && producto.stock > 0;
 
@@ -25,7 +28,7 @@ export function TarjetaProducto({ producto, onSeleccionar }) {
         <p className="tarjeta-descripcion">{producto.descripcion}</p>
 
         <div className="tarjeta-pie">
-          <strong className="tarjeta-precio">${producto.precio.toFixed(2)}</strong>
+          <strong className="tarjeta-precio">{dinero(producto.precio)}</strong>
           <button
             type="button"
             className="btn-detalle"
@@ -34,6 +37,7 @@ export function TarjetaProducto({ producto, onSeleccionar }) {
             Ver detalle
           </button>
         </div>
+        <BotonAgregar productoId={producto.id} stock={hayStock ? producto.stock : 0} className="tarjeta-agregar" />
       </div>
     </article>
   );
