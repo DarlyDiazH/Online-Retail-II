@@ -339,3 +339,7 @@
   color: #991b1b;
   font-size: 0.88rem;
 }
+/* Botón del carrito en tarjetas y detalle */
+.tarjeta-agregar { margin-top: 12px; width: 100%; }
+.tarjeta-agregar .carrito-btn { width: 100%; }
+.detalle-agregar { margin: 12px 0; }

@@ -22,7 +22,7 @@ if errorlevel 1 (
 )
 echo Instalando dependencias (puede tardar 1-2 minutos)...
 echo --- instalando paquetes de prueba --- >> "%LOG%"
-%PY% -m pip install -q --only-binary=:all: fastapi "sqlalchemy>=2" httpx python-dotenv >> "%LOG%" 2>&1
+%PY% -m pip install -q --only-binary=:all: fastapi "sqlalchemy>=2" httpx python-dotenv bcrypt >> "%LOG%" 2>&1
 echo --- verificando driver de Neon (psycopg2) --- >> "%LOG%"
 %PY% -m pip install -q --only-binary=:all: psycopg2-binary >> "%LOG%" 2>&1 && echo psycopg2 OK >> "%LOG%"
 echo --- pruebas --- >> "%LOG%"

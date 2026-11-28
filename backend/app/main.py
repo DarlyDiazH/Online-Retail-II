@@ -24,9 +24,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-app.include_router(catalogo_router)
-
-
+# Crea las tablas que falten (usuarios, carritos, pedidos...). No borra ni modifica las existentes.
 Base.metadata.create_all(bind=engine)
 
 app.include_router(auth_router)

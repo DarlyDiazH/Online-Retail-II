@@ -95,3 +95,7 @@
 .carrito-historial__codigo { font-family: monospace; font-weight: 600; }
 .carrito-historial__estado { color: var(--carrito-ok); text-transform: capitalize; }
 @media (max-width: 600px) { .carrito-historial__fila { grid-template-columns: 1fr 1fr; } }
+
+/* Botón de agregar dentro del catálogo */
+.carrito-agregar { display: inline-flex; flex-direction: column; gap: 4px; }
+.carrito-agregar__error { color: var(--carrito-error); font-size: 12px; max-width: 220px; }

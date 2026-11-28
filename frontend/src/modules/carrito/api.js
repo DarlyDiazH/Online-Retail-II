@@ -60,6 +60,7 @@ export const apiCarrito = {
 const formato = new Intl.NumberFormat("es-CO", {
   style: "currency",
   currency: import.meta.env.VITE_MONEDA ?? "GBP",
+  currencyDisplay: "narrowSymbol", // £ en vez de "GBP"
 });
 export const dinero = (valor) => formato.format(Number(valor ?? 0));
 

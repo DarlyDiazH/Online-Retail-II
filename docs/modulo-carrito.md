@@ -103,7 +103,7 @@ Todos reciben la cabecera `X-Usuario-Id` con el id del usuario que inició sesi�
   `SELECT v.segmento FROM usuarios u JOIN vw_descuentos_checkout v ON v.customer_id = u.customer_id WHERE u.id = :usuario_id`
 
 **Persona 2 (catálogo):**
-- Poner el archivo de productos en `backend/data/productos.json` (o `.csv`), o cambiar `PRODUCTOS_PATH`. Se aceptan columnas en español o en inglés: `id`/`StockCode`, `nombre`/`Description`, `precio`/`Price`, `stock`, `categoria`, `imagen`.
+- El carrito lee el mismo archivo del catálogo: `backend/app/modules/catalogo/data/productos.json` (se puede cambiar con `PRODUCTOS_PATH`). Se aceptan columnas en español o en inglés: `id`/`StockCode`, `nombre`/`Description`, `precio`/`Price`, `stock`, `categoria`, `imagen`.
 - En las tarjetas de producto, agregar: `<BotonAgregar productoId={p.id} stock={p.stock} />`
 
 **Quien arme `App.jsx`:**

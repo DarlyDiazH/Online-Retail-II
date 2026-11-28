@@ -25,13 +25,15 @@ log = logging.getLogger(__name__)
 
 _BACKEND_DIR = Path(__file__).resolve().parents[3]
 _EJEMPLO = Path(__file__).with_name("productos_ejemplo.json")
+# Archivo del módulo de catálogo (Persona 2): fuente oficial de productos.
+_CATALOGO = _BACKEND_DIR / "app" / "modules" / "catalogo" / "data" / "productos.json"
 
 # Nombres de columna aceptados (el catálogo puede usar español o inglés)
 _CAMPOS = {
     "id": ("id", "producto_id", "StockCode", "stock_code", "codigo"),
     "nombre": ("nombre", "Description", "descripcion", "name"),
     "precio": ("precio", "Price", "price", "UnitPrice"),
-    "stock": ("stock", "disponible", "existencias", "Quantity", "cantidad"),
+    "stock": ("stock", "existencias", "Quantity", "cantidad"),
     "categoria": ("categoria", "category", "Categoria"),
     "imagen": ("imagen", "image", "imagen_url", "url_imagen"),
 }
@@ -57,6 +59,8 @@ def _normalizar_producto(fila: dict) -> dict | None:
         stock = int(float(stock)) if stock is not None else None
     except ValueError:
         stock = None
+    if fila.get("disponible") is False:  # el catálogo puede marcar un producto como no disponible
+        stock = 0
     return {
         "id": str(pid),
         "nombre": str(_tomar(fila, "nombre") or pid),
@@ -68,8 +72,16 @@ def _normalizar_producto(fila: dict) -> dict | None:
 
 
 def _ruta_catalogo() -> Path:
-    ruta = Path(os.getenv("PRODUCTOS_PATH", "data/productos.json"))
-    return ruta if ruta.is_absolute() else _BACKEND_DIR / ruta
+    """PRODUCTOS_PATH si está definido; si no, el productos.json del módulo de catálogo;
+    y si tampoco existe, los productos de ejemplo del carrito."""
+    valor = os.getenv("PRODUCTOS_PATH")
+    if valor:
+        ruta = Path(valor)
+        ruta = ruta if ruta.is_absolute() else _BACKEND_DIR / ruta
+        if ruta.exists():
+            return ruta
+        log.warning("PRODUCTOS_PATH=%s no existe; se usa el catálogo por defecto", valor)
+    return _CATALOGO if _CATALOGO.exists() else _EJEMPLO
 
 
 _cache: dict = {"mtime": None, "ruta": None, "productos": {}}
@@ -77,8 +89,6 @@ _cache: dict = {"mtime": None, "ruta": None, "productos": {}}
 
 def _cargar_productos() -> dict[str, dict]:
     ruta = _ruta_catalogo()
-    if not ruta.exists():
-        ruta = _EJEMPLO
     mtime = ruta.stat().st_mtime
     if _cache["ruta"] == ruta and _cache["mtime"] == mtime:
         return _cache["productos"]
