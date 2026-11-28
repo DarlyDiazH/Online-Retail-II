@@ -35,6 +35,8 @@ class RegistroIn(BaseModel):
             raise ValueError("La contraseña debe tener al menos 8 caracteres.")
         if len(v) > 64:
             raise ValueError("La contraseña no puede superar 64 caracteres.")
+        if len(v.encode("utf-8")) > 72:  # límite de bcrypt (las tildes y la ñ ocupan 2 bytes)
+            raise ValueError("La contraseña es demasiado larga.")
         return v
 
 

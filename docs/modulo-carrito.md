@@ -49,7 +49,7 @@ Documentación interactiva: http://localhost:8000/docs. Si no se pone `DATABASE_
 
 Las tablas `carritos`, `carrito_items`, `pedidos` y `pedido_items` se crean solas en Neon la primera vez que arranca la API.
 
-Pruebas de la lógica de precios: `python -m unittest -v`
+Pruebas de todo el backend: `python -m pytest -v` (o doble clic en `backend\probar_backend.bat` en Windows)
 
 Frontend (React + Vite): se necesita `react-router-dom`. Variables opcionales en `frontend/.env`:
 
