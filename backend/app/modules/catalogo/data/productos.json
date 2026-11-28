@@ -1,0 +1,68 @@
+[
+  {
+    "id": "PROD-001",
+    "stock_code": "85123A",
+    "nombre": "Lámpara Decorativa Vintage Blanca",
+    "descripcion": "Lámpara de mesa estilo retro con acabado mate, ideal para sala o escritorio.",
+    "categoria": "Hogar y Decoración",
+    "precio": 48.50,
+    "stock": 25,
+    "disponible": true,
+    "imagen_url": "https://placehold.co/400x300?text=Lampara+Vintage"
+  },
+  {
+    "id": "PROD-002",
+    "stock_code": "71053",
+    "nombre": "Set de Velas Aromáticas Vainilla",
+    "descripcion": "Pack de 3 velas de cera de soya con aroma cálido a vainilla y canela.",
+    "categoria": "Hogar y Decoración",
+    "precio": 22.00,
+    "stock": 40,
+    "disponible": true,
+    "imagen_url": "https://placehold.co/400x300?text=Velas+Aromaticas"
+  },
+  {
+    "id": "PROD-003",
+    "stock_code": "84406B",
+    "nombre": "Taza Cerámica Diseño Geométrico",
+    "descripcion": "Taza de cerámica de 350 ml apta para microondas y lavavajillas.",
+    "categoria": "Cocina",
+    "precio": 14.90,
+    "stock": 60,
+    "disponible": true,
+    "imagen_url": "https://placehold.co/400x300?text=Taza+Ceramica"
+  },
+  {
+    "id": "PROD-004",
+    "stock_code": "22752",
+    "nombre": "Organizador de Escritorio Madera",
+    "descripcion": "Bandeja organizadora con compartimentos para libretas, bolígrafos y accesorios.",
+    "categoria": "Oficina y Papelería",
+    "precio": 34.00,
+    "stock": 12,
+    "disponible": true,
+    "imagen_url": "https://placehold.co/400x300?text=Organizador+Madera"
+  },
+  {
+    "id": "PROD-005",
+    "stock_code": "22633",
+    "nombre": "Lonchera Térmica Portátil Azul",
+    "descripcion": "Compartimento térmico impermeable con correa ajustable para oficina o viajes.",
+    "categoria": "Cocina",
+    "precio": 27.50,
+    "stock": 0,
+    "disponible": false,
+    "imagen_url": "https://placehold.co/400x300?text=Lonchera+Termica"
+  },
+  {
+    "id": "PROD-006",
+    "stock_code": "22197",
+    "nombre": "Cuaderno Tapa Dura Puntillado A5",
+    "descripcion": "160 páginas de papel grueso de 100 g/m², ideal para notas y bocetos.",
+    "categoria": "Oficina y Papelería",
+    "precio": 11.75,
+    "stock": 85,
+    "disponible": true,
+    "imagen_url": "https://placehold.co/400x300?text=Cuaderno+A5"
+  }
+]

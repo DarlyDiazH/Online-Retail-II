@@ -3,11 +3,7 @@
 import { BrowserRouter, Link, Navigate, Route, Routes } from "react-router-dom";
 import { CarritoProvider, IconoCarrito, rutasCarrito } from "./modules/carrito";
 import { AuthProvider, MenuUsuario, RutaProtegida, rutasAuthPrivadas, rutasAuthPublicas } from "./modules/auth";
-
-// PROVISIONAL: reemplazar por la página del catálogo (módulo de Persona 2).
-function CatalogoProvisional() {
-  return <main style={{ padding: "2rem" }}><h1>Catálogo</h1><p>Aquí irá el catálogo de productos.</p></main>;
-}
+import { CatalogoPage } from "./modules/catalogo";
 
 export default function App() {
   return (
@@ -24,7 +20,7 @@ export default function App() {
 
           <Routes>
             <Route path="/" element={<Navigate to="/catalogo" replace />} />
-            <Route path="/catalogo" element={<CatalogoProvisional />} />
+            <Route path="/catalogo" element={<CatalogoPage />} />
             {rutasAuthPublicas}
 
             {/* Rutas que exigen iniciar sesión */}
