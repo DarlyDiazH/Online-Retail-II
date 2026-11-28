@@ -21,6 +21,8 @@ app.add_middleware(
     # FRONTEND_ORIGIN admite varios orígenes separados por comas
     allow_origins=[o.strip() for o in os.getenv(
         "FRONTEND_ORIGIN", "http://localhost:5173,http://127.0.0.1:5173").split(",") if o.strip()],
+    # Cualquier puerto de este mismo PC (Vite usa 5174, 5175... si el 5173 está ocupado)
+    allow_origin_regex=r"http://(localhost|127\.0\.0\.1)(:\d+)?",
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
